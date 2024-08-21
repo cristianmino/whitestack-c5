@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: onim
+  name: onim-release
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: onim
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: onim
+  name: onim-release
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: onim
+  template:
+    metadata:
+      labels:
+        app: onim
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k8s-wk-02
+            weight: 1
+      containers:
+      - env:
+        - name: USER_NAME
+          value: defaultuser
+        - name: PASSWORD
+          value: defaultpass1234
+        image: nginx:latest
+        name: onim
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 200m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
