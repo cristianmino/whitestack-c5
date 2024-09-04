@@ -1,0 +1,23 @@
+replicaCount: 3
+
+image:
+  repository: nginx
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    cpu: "150m"
+    memory: "256Mi"
+  limits:
+    cpu: "200m"
+    memory: "512Mi"
+
+pass: ".ultpAss12345678"
+user: "defaultuser"
+Acredentials: "A41.1234a"
+Dbpassword: "passwoRd.123"
+
+service:
+  type: ClusterIP
+  port: 80

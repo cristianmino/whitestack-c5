@@ -1,0 +1,5 @@
+name: "list-resources"
+version: "0.1.1"
+usage: "Listar los resource requests de CPU y Memoria de un Chart"
+description: "Un plugin de Helm que lista los resource requests de CPU y Memoria"
+command: "$HELM_PLUGIN_DIR/list-resources.sh"

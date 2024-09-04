@@ -6,13 +6,15 @@ if [ -z "$NODE_NAME" ]; then
   exit 1
 fi
 
+TMP_DIR=tmp
+
 # Leer la entrada del manifiesto
 input=$(cat)
 
 # Convertir el input en un archivo temporal para su manipulación
-echo "$input" > tmp/manifests.yaml
+echo "$input" > $TMP_DIR/rendered.yaml
 
-yq e '. | select(.kind == "Deployment") ' tmp/manifests.yaml > tmp/deployment.yaml
+yq e '. | select(.kind == "Deployment") ' $TMP_DIR/rendered.yaml > $TMP_DIR/template.yaml
 yq e -i '
 .spec.template.spec.affinity = {
   "nodeAffinity": {
@@ -31,8 +33,20 @@ yq e -i '
       }
     ]
   }
-}' tmp/deployment.yaml
+}' $TMP_DIR/template.yaml
 
+kustomization_content=$(cat <<EOF
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- rendered.yaml
+patches:
+- path: template.yaml
+EOF
+)
+echo "$kustomization_content" > $TMP_DIR/kustomization.yaml
 
-kustomize build . > tmp/all.yaml
-cat tmp/all.yaml
+kustomize build $TMP_DIR/ > $TMP_DIR/all.yaml
+
+cat $TMP_DIR/all.yaml
+rm -rf $TMP_DIR/template.yaml $TMP_DIR/all.yaml $TMP_DIR/kustomization.yaml

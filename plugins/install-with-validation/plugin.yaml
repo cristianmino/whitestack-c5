@@ -1,0 +1,5 @@
+name: "install-with-validation"
+version: "0.1.0"
+usage: "Validar y configurar información sensible de un Chart"
+description: "Un plugin de Helm que valida y migra información sensible a Kubernetes Secrets"
+command: "$HELM_PLUGIN_DIR/install-with-validation.sh"
