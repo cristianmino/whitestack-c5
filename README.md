@@ -25,6 +25,7 @@ Antes de comenzar, asegúrate de tener las siguientes herramientas instaladas en
 - Bash
 - `yq` (v4.x o superior)
 - Kustomize (opcional, si no está integrado en `kubectl`)
+- Helm Chart básico (https://cristianmino.github.io/helm-chart-basic)
 
 ## Desafíos
 
