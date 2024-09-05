@@ -43,7 +43,7 @@ if [ -z "$1" ] || [ -z "$2" ]; then
 fi
 
 
-TMP_DIR=tmp
+# TMP_DIR=tmp
 
 RELEASE_NAME=$1
 CHART_PATH=$2

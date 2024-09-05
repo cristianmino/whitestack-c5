@@ -6,7 +6,7 @@ if [ -z "$NODE_NAME" ]; then
   exit 1
 fi
 
-TMP_DIR=tmp
+# TMP_DIR=tmp
 
 # Leer la entrada del manifiesto
 input=$(cat)
