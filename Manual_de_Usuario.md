@@ -10,7 +10,22 @@ Antes de comenzar con los desafíos, agrega el repositorio de charts Onim ejecut
 ```bash
 helm repo add onim-chart https://cristianmino.github.io/helm-chart-basic/
 ```
+## Instalar Herramientas
 
+- yq -> https://github.com/mikefarah/yq/#install
+- kustomize -> https://github.com/kubernetes-sigs/kustomize
+
+## Instalar plugins
+
+```bash
+export HELM_PLUGIN_DIR=$(helm home)/plugins
+mkdir -p $HELM_PLUGIN_DIR
+export TMP_DIR=$(mktemp -d)
+cd plugins/list-resources
+helm plugin install .
+cd plugins/install-with-validation 
+helm plugin install .
+```
 ## Desafío 1
 
 Para desplegar el chart en un nodo específico con Post Rendering, utiliza el siguiente comando:
